@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "types": ["node"],
+    "strict": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "outDir": "out/types-node",
+    "baseUrl": ".",
+    "paths": {
+      "@pageforge/schema": ["packages/schema/src/index.ts"],
+      "@/*": ["src/*"],
+      "@electron/*": ["electron/*"]
+    }
+  },
+  "include": [
+    "electron/main/**/*.ts",
+    "electron/preload/**/*.ts",
+    "electron/shared/**/*.ts",
+    "electron/services/**/*.ts",
+    "electron/services/ai/**/*.ts",
+    "src/stores/**/*.ts",
+    "src/editor/**/*.ts",
+    "src/panels/**/*.ts",
+    "src/exporters/**/*.ts",
+    "packages/*/src/**/*.ts",
+    "tests/**/*.ts",
+    "electron.vite.config.ts",
+    "vitest.config.ts"
+  ]
+}

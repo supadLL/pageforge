@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="PageForge">
+  <defs>
+    <linearGradient id="bg" x1="32" y1="28" x2="224" y2="228" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1f2937"/>
+      <stop offset="0.55" stop-color="#101827"/>
+      <stop offset="1" stop-color="#050816"/>
+    </linearGradient>
+    <linearGradient id="forge" x1="70" y1="58" x2="190" y2="206" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7dd3fc"/>
+      <stop offset="0.48" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#f97316"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#020617" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#bg)"/>
+  <path d="M58 64c0-11 9-20 20-20h100c11 0 20 9 20 20v28h-24V70c0-2-2-4-4-4H86c-2 0-4 2-4 4v116c0 2 2 4 4 4h52v22H78c-11 0-20-9-20-20V64z" fill="#e5e7eb" opacity="0.95" filter="url(#shadow)"/>
+  <path d="M92 91h58v18H92V91zm0 39h78v18H92v-18z" fill="#94a3b8"/>
+  <path d="M153 198l12-47h-31l66-91-12 48h32l-67 90z" fill="url(#forge)" filter="url(#shadow)"/>
+  <path d="M151 201l14-51h-32l67-92-11 49h31l-69 94z" fill="none" stroke="#f8fafc" stroke-width="5" stroke-linejoin="round" opacity="0.82"/>
+</svg>
