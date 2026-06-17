@@ -30,7 +30,7 @@
     "@vue/test-utils": "^2.4.6",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
-    "electron": "^32.0.0",
+    "electron": "^32.3.3",
     "electron-vite": "^2.3.0",
     "jsdom": "^24.1.1",
     "typescript": "^5.5.3",

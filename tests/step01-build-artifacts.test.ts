@@ -11,7 +11,8 @@ const root = process.cwd()
 
 describe('P0 工程骨架 build 产物', () => {
   it('主进程产物存在且非空', () => {
-    const p = path.join(root, 'out/main/index.js')
+    // main 产物为 .cjs（package.json type:module 下 CJS 必须用 .cjs 扩展名）
+    const p = path.join(root, 'out/main/index.cjs')
     expect(existsSync(p)).toBe(true)
     expect(statSync(p).size).toBeGreaterThan(0)
   })
