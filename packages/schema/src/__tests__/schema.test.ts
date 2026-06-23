@@ -22,10 +22,13 @@ describe('P0 Schema 基础常量', () => {
   })
 
   it('MVP 组件类型集合固定 9 个', () => {
-    expect(MVP_COMPONENT_TYPES).toHaveLength(9)
+    expect(MVP_COMPONENT_TYPES).toHaveLength(23)
     expect(MVP_COMPONENT_TYPES).toContain('PageRoot')
     expect(MVP_COMPONENT_TYPES).toContain('Container')
     expect(MVP_COMPONENT_TYPES).toContain('Heading')
+    expect(MVP_COMPONENT_TYPES).toContain('BackgroundPanel')
+    expect(MVP_COMPONENT_TYPES).toContain('HeroBlock')
+    expect(MVP_COMPONENT_TYPES).toContain('ProgressBar')
   })
 })
 
@@ -66,7 +69,9 @@ describe('P0 createPageRoot', () => {
     expect(root.type).toBe('PageRoot')
     expect(root.children).toEqual([])
     expect(root.id).toMatch(/^root_/)
-    expect(root.style.display).toBe('flex')
+    expect(root.style.display).toBe('block')
+    expect(root.style.position).toBe('relative')
+    expect(root.style.width).toBe('100%')
   })
 })
 

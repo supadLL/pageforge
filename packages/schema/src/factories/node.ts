@@ -31,13 +31,14 @@ export function createPageRoot(): Node {
     name: 'Page',
     props: {},
     style: {
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '100vh',
+      display: 'block',
+      position: 'relative',
       width: '100%',
-      backgroundColor: '$colors.background',
+      minHeight: '100%',
+      backgroundColor: 'transparent',
       color: '$colors.text',
-      fontFamily: '$fontFamily.sans'
+      fontFamily: '$fontFamily.sans',
+      overflow: 'visible'
     },
     children: []
   }

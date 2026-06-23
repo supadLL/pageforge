@@ -12,6 +12,20 @@ export type ComponentType =
   | 'Image'
   | 'Input'
   | 'Divider'
+  | 'BackgroundPanel'
+  | 'GlassPanel'
+  | 'GradientCard'
+  | 'Navbar'
+  | 'Badge'
+  | 'Avatar'
+  | 'HeroBlock'
+  | 'StatsCard'
+  | 'FeatureTile'
+  | 'SearchBox'
+  | 'Tabs'
+  | 'Sidebar'
+  | 'PricingCard'
+  | 'ProgressBar'
 
 export const MVP_COMPONENT_TYPES: readonly ComponentType[] = [
   'PageRoot',
@@ -22,7 +36,21 @@ export const MVP_COMPONENT_TYPES: readonly ComponentType[] = [
   'Button',
   'Image',
   'Input',
-  'Divider'
+  'Divider',
+  'BackgroundPanel',
+  'GlassPanel',
+  'GradientCard',
+  'Navbar',
+  'Badge',
+  'Avatar',
+  'HeroBlock',
+  'StatsCard',
+  'FeatureTile',
+  'SearchBox',
+  'Tabs',
+  'Sidebar',
+  'PricingCard',
+  'ProgressBar'
 ] as const
 
 export type ComponentCategory =

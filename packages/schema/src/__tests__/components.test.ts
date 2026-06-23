@@ -11,7 +11,7 @@ import {
 
 describe('P0 组件注册表', () => {
   it('9 个 MVP 组件全部注册', () => {
-    expect(listComponentDefinitions()).toHaveLength(9)
+    expect(listComponentDefinitions()).toHaveLength(MVP_COMPONENT_TYPES.length)
   })
 
   it('每个组件类型都能查到定义', () => {
@@ -32,12 +32,17 @@ describe('P0 组件注册表', () => {
     expect(isContainer('PageRoot')).toBe(true)
     expect(isContainer('Container')).toBe(true)
     expect(isContainer('Card')).toBe(true)
+    expect(isContainer('BackgroundPanel')).toBe(true)
+    expect(isContainer('HeroBlock')).toBe(true)
+    expect(isContainer('Sidebar')).toBe(true)
     expect(isContainer('Heading')).toBe(false)
     expect(isContainer('Text')).toBe(false)
     expect(isContainer('Button')).toBe(false)
     expect(isContainer('Image')).toBe(false)
     expect(isContainer('Input')).toBe(false)
     expect(isContainer('Divider')).toBe(false)
+    expect(isContainer('SearchBox')).toBe(false)
+    expect(isContainer('ProgressBar')).toBe(false)
   })
 
   it('未知组件类型抛错', () => {

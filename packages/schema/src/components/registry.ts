@@ -8,6 +8,20 @@ import { ButtonDefinition } from './Button.js'
 import { ImageDefinition } from './Image.js'
 import { InputDefinition } from './Input.js'
 import { DividerDefinition } from './Divider.js'
+import { BackgroundPanelDefinition } from './BackgroundPanel.js'
+import { GlassPanelDefinition } from './GlassPanel.js'
+import { GradientCardDefinition } from './GradientCard.js'
+import { NavbarDefinition } from './Navbar.js'
+import { BadgeDefinition } from './Badge.js'
+import { AvatarDefinition } from './Avatar.js'
+import { HeroBlockDefinition } from './HeroBlock.js'
+import { StatsCardDefinition } from './StatsCard.js'
+import { FeatureTileDefinition } from './FeatureTile.js'
+import { SearchBoxDefinition } from './SearchBox.js'
+import { TabsDefinition } from './Tabs.js'
+import { SidebarDefinition } from './Sidebar.js'
+import { PricingCardDefinition } from './PricingCard.js'
+import { ProgressBarDefinition } from './ProgressBar.js'
 
 /**
  * MVP 组件注册表。所有组件必须先注册才能被使用。
@@ -22,7 +36,21 @@ const REGISTRY: Record<ComponentType, ComponentDefinition> = {
   Button: ButtonDefinition,
   Image: ImageDefinition,
   Input: InputDefinition,
-  Divider: DividerDefinition
+  Divider: DividerDefinition,
+  BackgroundPanel: BackgroundPanelDefinition,
+  GlassPanel: GlassPanelDefinition,
+  GradientCard: GradientCardDefinition,
+  Navbar: NavbarDefinition,
+  Badge: BadgeDefinition,
+  Avatar: AvatarDefinition,
+  HeroBlock: HeroBlockDefinition,
+  StatsCard: StatsCardDefinition,
+  FeatureTile: FeatureTileDefinition,
+  SearchBox: SearchBoxDefinition,
+  Tabs: TabsDefinition,
+  Sidebar: SidebarDefinition,
+  PricingCard: PricingCardDefinition,
+  ProgressBar: ProgressBarDefinition
 }
 
 export function getComponentDefinition(type: ComponentType): ComponentDefinition {
