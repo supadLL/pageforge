@@ -5,7 +5,9 @@ import type { JsonSchema } from '../validation/jsonSchema.js'
 const props: JsonSchema = {
   type: 'object',
   additionalProperties: false,
-  properties: {}
+  properties: {
+    title: { type: 'string', title: '标题', description: '侧边栏标题', default: 'Menu' }
+  }
 }
 
 const style: StyleMap = {
@@ -27,7 +29,7 @@ export const SidebarDefinition: ComponentDefinition = {
   type: 'Sidebar',
   label: '侧边栏',
   category: 'navigation',
-  defaultProps: {},
+  defaultProps: { title: 'Menu' },
   defaultStyle: style,
   propSchema: props,
   acceptsChildren: true,

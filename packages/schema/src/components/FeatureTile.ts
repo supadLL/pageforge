@@ -5,7 +5,10 @@ import type { JsonSchema } from '../validation/jsonSchema.js'
 const props: JsonSchema = {
   type: 'object',
   additionalProperties: false,
-  properties: {}
+  properties: {
+    title: { type: 'string', title: '标题', default: 'Feature' },
+    description: { type: 'string', title: '描述', default: 'A powerful feature description.' }
+  }
 }
 
 const style: StyleMap = {
@@ -27,7 +30,7 @@ export const FeatureTileDefinition: ComponentDefinition = {
   type: 'FeatureTile',
   label: '功能块',
   category: 'basic',
-  defaultProps: {},
+  defaultProps: { title: 'Feature', description: 'A powerful feature description.' },
   defaultStyle: style,
   propSchema: props,
   acceptsChildren: true,

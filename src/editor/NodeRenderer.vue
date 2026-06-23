@@ -225,14 +225,75 @@ function renderByType(n: Node) {
     case 'BackgroundPanel':
     case 'GlassPanel':
     case 'GradientCard':
-    case 'Navbar':
-    case 'HeroBlock':
-    case 'StatsCard':
-    case 'FeatureTile':
     case 'Tabs':
-    case 'Sidebar':
-    case 'PricingCard':
       return h(getContainerTag(n.type), undefined, renderChildren(n))
+    case 'Navbar': {
+      const kids = [
+        h('span', { style: { fontWeight: '700', fontSize: '18px' } }, String(n.props.title ?? 'Brand')),
+        ...(n.children ?? []).map((c) => h(selfComponent as any, {
+          node: c, tokens: props.tokens, selectedId: props.selectedId,
+          hoverDropId: props.hoverDropId, onSelect: (id: string) => emit('select', id),
+          onDrop: (p: any) => emit('drop', p), key: c.id
+        }))
+      ]
+      return h('nav', undefined, kids)
+    }
+    case 'HeroBlock': {
+      const kids: any[] = []
+      if (n.props.title) kids.push(h('h1', { style: { fontSize: '36px', fontWeight: '800', margin: '0' } }, String(n.props.title)))
+      if (n.props.subtitle) kids.push(h('p', { style: { fontSize: '18px', opacity: '0.85', margin: '0' } }, String(n.props.subtitle)))
+      kids.push(...(n.children ?? []).map((c) => h(selfComponent as any, {
+        node: c, tokens: props.tokens, selectedId: props.selectedId,
+        hoverDropId: props.hoverDropId, onSelect: (id: string) => emit('select', id),
+        onDrop: (p: any) => emit('drop', p), key: c.id
+      })))
+      return h('section', undefined, kids)
+    }
+    case 'StatsCard': {
+      const kids: any[] = [
+        h('span', { style: { fontSize: '13px', opacity: '0.7' } }, String(n.props.label ?? '')),
+        h('span', { style: { fontSize: '28px', fontWeight: '800' } }, String(n.props.value ?? ''))
+      ]
+      kids.push(...(n.children ?? []).map((c) => h(selfComponent as any, {
+        node: c, tokens: props.tokens, selectedId: props.selectedId,
+        hoverDropId: props.hoverDropId, onSelect: (id: string) => emit('select', id),
+        onDrop: (p: any) => emit('drop', p), key: c.id
+      })))
+      return h('div', undefined, kids)
+    }
+    case 'FeatureTile': {
+      const kids: any[] = []
+      if (n.props.title) kids.push(h('h3', { style: { fontSize: '18px', fontWeight: '700', margin: '0' } }, String(n.props.title)))
+      if (n.props.description) kids.push(h('p', { style: { fontSize: '14px', opacity: '0.75', margin: '0' } }, String(n.props.description)))
+      kids.push(...(n.children ?? []).map((c) => h(selfComponent as any, {
+        node: c, tokens: props.tokens, selectedId: props.selectedId,
+        hoverDropId: props.hoverDropId, onSelect: (id: string) => emit('select', id),
+        onDrop: (p: any) => emit('drop', p), key: c.id
+      })))
+      return h('div', undefined, kids)
+    }
+    case 'PricingCard': {
+      const kids: any[] = []
+      if (n.props.plan) kids.push(h('span', { style: { fontSize: '16px', fontWeight: '700' } }, String(n.props.plan)))
+      if (n.props.price) kids.push(h('span', { style: { fontSize: '28px', fontWeight: '800' } }, String(n.props.price)))
+      if (n.props.featured) kids.push(h('span', { style: { fontSize: '11px', color: '#f97316', fontWeight: '700' } }, '★ 推荐'))
+      kids.push(...(n.children ?? []).map((c) => h(selfComponent as any, {
+        node: c, tokens: props.tokens, selectedId: props.selectedId,
+        hoverDropId: props.hoverDropId, onSelect: (id: string) => emit('select', id),
+        onDrop: (p: any) => emit('drop', p), key: c.id
+      })))
+      return h('div', undefined, kids)
+    }
+    case 'Sidebar': {
+      const kids: any[] = []
+      if (n.props.title) kids.push(h('span', { style: { fontSize: '14px', fontWeight: '700', opacity: '0.6', textTransform: 'uppercase' } }, String(n.props.title)))
+      kids.push(...(n.children ?? []).map((c) => h(selfComponent as any, {
+        node: c, tokens: props.tokens, selectedId: props.selectedId,
+        hoverDropId: props.hoverDropId, onSelect: (id: string) => emit('select', id),
+        onDrop: (p: any) => emit('drop', p), key: c.id
+      })))
+      return h('aside', undefined, kids)
+    }
     case 'ProgressBar': {
       const value = Math.max(0, Math.min(100, Number(n.props.value ?? 0)))
       return h('div', undefined, [

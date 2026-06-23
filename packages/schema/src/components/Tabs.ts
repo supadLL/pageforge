@@ -5,7 +5,9 @@ import type { JsonSchema } from '../validation/jsonSchema.js'
 const props: JsonSchema = {
   type: 'object',
   additionalProperties: false,
-  properties: {}
+  properties: {
+    activeIndex: { type: 'integer', title: '激活标签', default: 0, minimum: 0 }
+  }
 }
 
 const style: StyleMap = {
@@ -26,7 +28,7 @@ export const TabsDefinition: ComponentDefinition = {
   type: 'Tabs',
   label: '标签页',
   category: 'navigation',
-  defaultProps: {},
+  defaultProps: { activeIndex: 0 },
   defaultStyle: style,
   propSchema: props,
   acceptsChildren: true,

@@ -5,7 +5,9 @@ import type { JsonSchema } from '../validation/jsonSchema.js'
 const props: JsonSchema = {
   type: 'object',
   additionalProperties: false,
-  properties: {}
+  properties: {
+    title: { type: 'string', title: '标题', description: '可选标题文本' }
+  }
 }
 
 const style: StyleMap = {

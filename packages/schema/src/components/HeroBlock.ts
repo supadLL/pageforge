@@ -5,7 +5,10 @@ import type { JsonSchema } from '../validation/jsonSchema.js'
 const props: JsonSchema = {
   type: 'object',
   additionalProperties: false,
-  properties: {}
+  properties: {
+    title: { type: 'string', title: '标题', description: '英雄区主标题', default: 'Build pages at the speed of thought' },
+    subtitle: { type: 'string', title: '副标题', description: '英雄区副标题', default: 'AI-driven visual page builder' }
+  }
 }
 
 const style: StyleMap = {
@@ -28,7 +31,7 @@ export const HeroBlockDefinition: ComponentDefinition = {
   type: 'HeroBlock',
   label: '英雄区',
   category: 'layout',
-  defaultProps: {},
+  defaultProps: { title: 'Build pages at the speed of thought', subtitle: 'AI-driven visual page builder' },
   defaultStyle: style,
   propSchema: props,
   acceptsChildren: true,

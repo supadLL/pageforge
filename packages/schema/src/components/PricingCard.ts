@@ -5,7 +5,11 @@ import type { JsonSchema } from '../validation/jsonSchema.js'
 const props: JsonSchema = {
   type: 'object',
   additionalProperties: false,
-  properties: {}
+  properties: {
+    plan: { type: 'string', title: '套餐名', default: 'Pro' },
+    price: { type: 'string', title: '价格', default: '$29/mo' },
+    featured: { type: 'boolean', title: '推荐', default: false }
+  }
 }
 
 const style: StyleMap = {
@@ -27,7 +31,7 @@ export const PricingCardDefinition: ComponentDefinition = {
   type: 'PricingCard',
   label: '价格卡',
   category: 'data',
-  defaultProps: {},
+  defaultProps: { plan: 'Pro', price: '$29/mo', featured: false },
   defaultStyle: style,
   propSchema: props,
   acceptsChildren: true,

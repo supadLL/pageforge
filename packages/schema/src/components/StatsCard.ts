@@ -5,7 +5,10 @@ import type { JsonSchema } from '../validation/jsonSchema.js'
 const props: JsonSchema = {
   type: 'object',
   additionalProperties: false,
-  properties: {}
+  properties: {
+    label: { type: 'string', title: '标签', default: 'Active users' },
+    value: { type: 'string', title: '数值', default: '12,847' }
+  }
 }
 
 const style: StyleMap = {
@@ -28,7 +31,7 @@ export const StatsCardDefinition: ComponentDefinition = {
   type: 'StatsCard',
   label: '数据卡',
   category: 'data',
-  defaultProps: {},
+  defaultProps: { label: 'Active users', value: '12,847' },
   defaultStyle: style,
   propSchema: props,
   acceptsChildren: true,

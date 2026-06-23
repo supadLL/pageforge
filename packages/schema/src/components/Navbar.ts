@@ -5,7 +5,9 @@ import type { JsonSchema } from '../validation/jsonSchema.js'
 const props: JsonSchema = {
   type: 'object',
   additionalProperties: false,
-  properties: {}
+  properties: {
+    title: { type: 'string', title: '品牌名', description: '导航栏左侧品牌名', default: 'Brand' }
+  }
 }
 
 const style: StyleMap = {
@@ -28,7 +30,7 @@ export const NavbarDefinition: ComponentDefinition = {
   type: 'Navbar',
   label: '导航条',
   category: 'navigation',
-  defaultProps: {},
+  defaultProps: { title: 'Brand' },
   defaultStyle: style,
   propSchema: props,
   acceptsChildren: true,
