@@ -114,6 +114,9 @@ function onResizeStart(e: PointerEvent, handle: ResizeHandle) {
     top: parsePx(props.node.style.top, 0)
   }
 
+  // 拖动期间的实时尺寸（本地 ref，不进历史栈）
+  const liveStyle = ref<{ width?: string; height?: string; left?: string; top?: string }>({})
+
   const onMove = (moveEvent: PointerEvent) => {
     moveEvent.preventDefault()
     const dx = moveEvent.clientX - start.x
@@ -135,12 +138,22 @@ function onResizeStart(e: PointerEvent, handle: ResizeHandle) {
       next.top = `${Math.round(start.top + (start.height - height))}px`
     }
 
-    project.updateNodeStyle(props.node.id, next)
+    // 实时更新视觉（直接写 DOM，不走 store，不进历史栈）
+    liveStyle.value = next as any
+    if (next.width) el.style.width = next.width as string
+    if (next.height) el.style.height = next.height as string
+    if (next.left) el.style.left = next.left as string
+    if (next.top) el.style.top = next.top as string
   }
 
   const onUp = () => {
     window.removeEventListener('pointermove', onMove)
     window.removeEventListener('pointerup', onUp)
+    // pointerup 时一次性提交命令（一条历史记录）
+    const final = liveStyle.value
+    if (final && Object.keys(final).length > 0) {
+      project.updateNodeStyle(props.node.id, final as Partial<StyleMap>)
+    }
   }
 
   window.addEventListener('pointermove', onMove)

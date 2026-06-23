@@ -19,7 +19,8 @@ import {
   removeNodeFromTree,
   findContainerAncestor,
   updateNodeInTree,
-  moveNodeInTree
+  moveNodeInTree,
+  countNodes
 } from '../editor/treeOps'
 import { useHistoryStore } from '../editor/commands/historyStore'
 import {
@@ -52,6 +53,13 @@ export const useProjectStore = defineStore('project', () => {
   const currentPageId = ref<string>(project.value.pages[0].id)
   const currentPage = ref<Page>(project.value.pages[0])
 
+  /** 缓存的节点计数，避免每次渲染遍历整棵树 */
+  const nodeCount = ref<number>(countNodes(getCurrentRoot()))
+
+  function refreshNodeCount(): void {
+    nodeCount.value = countNodes(getCurrentRoot())
+  }
+
   function setCurrentPage(pageId: string) {
     const p = project.value.pages.find((x) => x.id === pageId)
     if (!p) throw new Error(`page not found: ${pageId}`)
@@ -76,6 +84,7 @@ export const useProjectStore = defineStore('project', () => {
     const newRoot = applyCommand(getCurrentRoot(), cmd)
     setRoot(newRoot)
     useHistoryStore().push(cmd, mergeKey as any)
+    refreshNodeCount()
   }
 
   function addNode(
@@ -188,6 +197,7 @@ export const useProjectStore = defineStore('project', () => {
     if (!cmd) return
     const newRoot = applyCommand(getCurrentRoot(), cmd, true)
     setRoot(newRoot)
+    refreshNodeCount()
   }
 
   /** 重做 */
@@ -197,6 +207,7 @@ export const useProjectStore = defineStore('project', () => {
     if (!cmd) return
     const newRoot = applyCommand(getCurrentRoot(), cmd, false)
     setRoot(newRoot)
+    refreshNodeCount()
   }
 
   function markSaved(): void {
@@ -212,6 +223,7 @@ export const useProjectStore = defineStore('project', () => {
       currentPage.value = p.pages[0]
     }
     useHistoryStore().clear()
+    refreshNodeCount()
   }
 
   /** 新建项目（通过主进程对话框） */
@@ -340,6 +352,7 @@ export const useProjectStore = defineStore('project', () => {
     projectDir,
     currentPageId,
     currentPage,
+    nodeCount,
     setCurrentPage,
     getCurrentRoot,
     setRoot,

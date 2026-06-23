@@ -3,7 +3,6 @@ import { computed, onMounted, onBeforeUnmount } from 'vue'
 import { useProjectStore } from '../stores/project'
 import { useEditorStore } from '../stores/editor'
 import { useHistoryStore } from '../editor/commands/historyStore'
-import { countNodes } from '../editor/treeOps'
 
 const project = useProjectStore()
 const editor = useEditorStore()
@@ -11,7 +10,7 @@ const history = useHistoryStore()
 
 const emit = defineEmits<{ (e: 'toggle-code'): void; (e: 'toggle-ai'): void }>()
 
-const nodeCount = computed(() => countNodes(project.getCurrentRoot()))
+const nodeCount = computed(() => project.nodeCount)
 const selectedLabel = computed(() => {
   const id = editor.selectedNodeId
   if (!id) return '无'
