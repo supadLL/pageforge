@@ -72,3 +72,49 @@ export function escapeAttr(s: string): string {
 }
 
 export { isContainer, getComponentDefinition }
+
+/**
+ * 生成容器组件的 props 文本内容（HTML 片段）。
+ * 用于 Navbar/HeroBlock/StatsCard/FeatureTile/PricingCard/Sidebar
+ * 这些"带固定文案槽位的容器"在导出时把 props 文本渲染出来。
+ *
+ * 返回 null 表示该组件不需要 props 文本（纯容器或已由调用方处理）。
+ */
+export function renderPropsContent(node: Node, indent: string): string | null {
+  const esc = escapeText
+  switch (node.type) {
+    case 'Navbar': {
+      const t = esc(String(node.props.title ?? 'Brand'))
+      return `${indent}  <span style="font-weight:700;font-size:18px">${t}</span>`
+    }
+    case 'HeroBlock': {
+      const lines: string[] = []
+      if (node.props.title) lines.push(`${indent}  <h1 style="font-size:36px;font-weight:800;margin:0">${esc(String(node.props.title))}</h1>`)
+      if (node.props.subtitle) lines.push(`${indent}  <p style="font-size:18px;opacity:0.85;margin:0">${esc(String(node.props.subtitle))}</p>`)
+      return lines.length > 0 ? lines.join('\n') : null
+    }
+    case 'StatsCard': {
+      return `${indent}  <span style="font-size:13px;opacity:0.7">${esc(String(node.props.label ?? ''))}</span>\n${indent}  <span style="font-size:28px;font-weight:800">${esc(String(node.props.value ?? ''))}</span>`
+    }
+    case 'FeatureTile': {
+      const lines: string[] = []
+      if (node.props.title) lines.push(`${indent}  <h3 style="font-size:18px;font-weight:700;margin:0">${esc(String(node.props.title))}</h3>`)
+      if (node.props.description) lines.push(`${indent}  <p style="font-size:14px;opacity:0.75;margin:0">${esc(String(node.props.description))}</p>`)
+      return lines.length > 0 ? lines.join('\n') : null
+    }
+    case 'PricingCard': {
+      const lines: string[] = []
+      if (node.props.plan) lines.push(`${indent}  <span style="font-size:16px;font-weight:700">${esc(String(node.props.plan))}</span>`)
+      if (node.props.price) lines.push(`${indent}  <span style="font-size:28px;font-weight:800">${esc(String(node.props.price))}</span>`)
+      if (node.props.featured) lines.push(`${indent}  <span style="font-size:11px;color:#f97316;font-weight:700">★ 推荐</span>`)
+      return lines.length > 0 ? lines.join('\n') : null
+    }
+    case 'Sidebar': {
+      if (!node.props.title) return null
+      return `${indent}  <span style="font-size:14px;font-weight:700;opacity:0.6;text-transform:uppercase">${esc(String(node.props.title))}</span>`
+    }
+    default:
+      return null
+  }
+}
+

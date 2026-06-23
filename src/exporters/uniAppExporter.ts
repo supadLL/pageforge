@@ -7,7 +7,8 @@ import {
   collectVisibleNodes,
   escapeText,
   escapeAttr,
-  nodeClassName
+  nodeClassName,
+  renderPropsContent
 } from './exporterUtils'
 
 /**
@@ -86,14 +87,19 @@ function renderTemplate(
     case 'BackgroundPanel':
     case 'GlassPanel':
     case 'GradientCard':
+    case 'Tabs': {
+      const inner = renderChildren(node, classMap, includeHidden, indent + '  ')
+      return `${indent}<view class="${cls}">\n${inner}\n${indent}</view>`
+    }
     case 'Navbar':
     case 'HeroBlock':
     case 'StatsCard':
     case 'FeatureTile':
-    case 'Tabs':
-    case 'Sidebar':
-    case 'PricingCard': {
-      const inner = renderChildren(node, classMap, includeHidden, indent + '  ')
+    case 'PricingCard':
+    case 'Sidebar': {
+      const propsInner = renderUniAppPropsContent(node, indent + '  ')
+      const kids = renderChildren(node, classMap, includeHidden, indent + '  ')
+      const inner = propsInner ? (kids ? propsInner + '\n' + kids : propsInner) : kids
       return `${indent}<view class="${cls}">\n${inner}\n${indent}</view>`
     }
     case 'Heading': {
@@ -142,6 +148,41 @@ function renderChildren(
     .map((c) => renderTemplate(c, classMap, includeHidden, indent))
     .filter(Boolean)
     .join('\n')
+}
+
+/** uni-app 专用：用 <text> 标签渲染容器组件的 props 文本 */
+function renderUniAppPropsContent(node: Node, indent: string): string {
+  const esc = escapeText
+  switch (node.type) {
+    case 'Navbar':
+      return `${indent}<text style="font-weight:700;font-size:18px">${esc(String(node.props.title ?? 'Brand'))}</text>`
+    case 'HeroBlock': {
+      const lines: string[] = []
+      if (node.props.title) lines.push(`${indent}<text style="font-size:36px;font-weight:800">${esc(String(node.props.title))}</text>`)
+      if (node.props.subtitle) lines.push(`${indent}<text style="font-size:18px;opacity:0.85">${esc(String(node.props.subtitle))}</text>`)
+      return lines.join('\n')
+    }
+    case 'StatsCard':
+      return `${indent}<text style="font-size:13px;opacity:0.7">${esc(String(node.props.label ?? ''))}</text>\n${indent}<text style="font-size:28px;font-weight:800">${esc(String(node.props.value ?? ''))}</text>`
+    case 'FeatureTile': {
+      const lines: string[] = []
+      if (node.props.title) lines.push(`${indent}<text style="font-size:18px;font-weight:700">${esc(String(node.props.title))}</text>`)
+      if (node.props.description) lines.push(`${indent}<text style="font-size:14px;opacity:0.75">${esc(String(node.props.description))}</text>`)
+      return lines.join('\n')
+    }
+    case 'PricingCard': {
+      const lines: string[] = []
+      if (node.props.plan) lines.push(`${indent}<text style="font-size:16px;font-weight:700">${esc(String(node.props.plan))}</text>`)
+      if (node.props.price) lines.push(`${indent}<text style="font-size:28px;font-weight:800">${esc(String(node.props.price))}</text>`)
+      if (node.props.featured) lines.push(`${indent}<text style="font-size:11px;color:#f97316;font-weight:700">★ 推荐</text>`)
+      return lines.join('\n')
+    }
+    case 'Sidebar':
+      if (!node.props.title) return ''
+      return `${indent}<text style="font-size:14px;font-weight:700;opacity:0.6;text-transform:uppercase">${esc(String(node.props.title))}</text>`
+    default:
+      return ''
+  }
 }
 
 function mapFit(fit: unknown): string {

@@ -7,7 +7,8 @@ import {
   collectVisibleNodes,
   BREAKPOINT_WIDTH,
   escapeText,
-  escapeAttr
+  escapeAttr,
+  renderPropsContent
 } from './exporterUtils'
 
 /**
@@ -154,15 +155,19 @@ function renderJsx(
   }
   // 容器
   let inner = ''
+  const propsContent = renderPropsContent(node, indent) ?? ''
   if (node.children && node.children.length > 0) {
     inner =
       '\n' +
+      (propsContent ? propsContent + '\n' : '') +
       node.children
         .map((c) => renderJsx(c, classMap, includeHidden, indent + '  '))
         .filter(Boolean)
         .join('\n') +
       '\n' +
       indent
+  } else if (propsContent) {
+    inner = '\n' + propsContent + '\n' + indent
   }
   return `${indent}<${tag} ${className}>${inner}</${tag}>`
 }

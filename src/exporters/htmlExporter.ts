@@ -9,6 +9,7 @@ import type {
 } from '@pageforge/schema'
 import { getComponentDefinition, isContainer } from '@pageforge/schema'
 import { isTokenRef, tokenRefToCssVar } from '@pageforge/schema'
+import { renderPropsContent } from './exporterUtils'
 
 /**
  * HTML Exporter（docs/steps/10）
@@ -210,15 +211,19 @@ function renderHtml(
     return `${indent}<div ${attrs.join(' ')}><span style="display:block;width:${value}%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#2563eb,#06b6d4);"></span></div>`
   }
   if (node.type === 'PageRoot' || isContainer(node.type)) {
+    const propsContent = renderPropsContent(node, indent) ?? ''
     if (node.children && node.children.length > 0) {
       inner =
         '\n' +
+        (propsContent ? propsContent + '\n' : '') +
         node.children
           .map((c) => renderHtml(c, classMap, project, options, indent + '  '))
           .filter(Boolean)
           .join('\n') +
         '\n' +
         indent
+    } else if (propsContent) {
+      inner = '\n' + propsContent + '\n' + indent
     }
     return `${indent}<${tag} ${attrs.join(' ')}>${inner}</${tag}>`
   }
