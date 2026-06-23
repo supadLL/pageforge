@@ -82,7 +82,17 @@ function renderTemplate(
       return `${indent}<view class="${cls}">\n${inner}\n${indent}</view>`
     }
     case 'Container':
-    case 'Card': {
+    case 'Card':
+    case 'BackgroundPanel':
+    case 'GlassPanel':
+    case 'GradientCard':
+    case 'Navbar':
+    case 'HeroBlock':
+    case 'StatsCard':
+    case 'FeatureTile':
+    case 'Tabs':
+    case 'Sidebar':
+    case 'PricingCard': {
       const inner = renderChildren(node, classMap, includeHidden, indent + '  ')
       return `${indent}<view class="${cls}">\n${inner}\n${indent}</view>`
     }
@@ -92,10 +102,21 @@ function renderTemplate(
     }
     case 'Text':
       return `${indent}<text class="${cls}">${escapeText(String(node.props.text ?? ''))}</text>`
+    case 'Badge':
+    case 'Avatar':
+      return `${indent}<text class="${cls}">${escapeText(String(node.props.text ?? ''))}</text>`
     case 'Button': {
       const tap = hasClickEvent(node) ? ` @tap="handle${handlerName(node.id)}Tap"` : ''
       const disabled = node.props.disabled ? ' disabled' : ''
       return `${indent}<button class="${cls}"${tap}${disabled}>${escapeText(String(node.props.text ?? ''))}</button>`
+    }
+    case 'SearchBox': {
+      const disabled = node.props.disabled ? ' disabled' : ''
+      return `${indent}<view class="${cls}"><text>Search</text><input type="text" placeholder="${escapeAttr(String(node.props.placeholder ?? ''))}" value="${escapeAttr(String(node.props.value ?? ''))}"${disabled} /></view>`
+    }
+    case 'ProgressBar': {
+      const value = Math.max(0, Math.min(100, Number(node.props.value ?? 0)))
+      return `${indent}<view class="${cls}"><view style="width:${value}%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#2563eb,#06b6d4);"></view></view>`
     }
     case 'Image': {
       const mode = mapFit(node.props.fit)

@@ -95,6 +95,22 @@ function renderTemplate(
     const clickHandler = hasClickEvent(node) ? ` @click="handle${handlerName(node.id)}Click"` : ''
     return `${indent}<button class="${cls}"${clickHandler}${disabled}>${escapeText(String(node.props.text ?? ''))}</button>`
   }
+  if (node.type === 'Badge') {
+    return `${indent}<span class="${cls}">${escapeText(String(node.props.text ?? ''))}</span>`
+  }
+  if (node.type === 'Avatar') {
+    return `${indent}<div class="${cls}">${escapeText(String(node.props.text ?? ''))}</div>`
+  }
+  if (node.type === 'SearchBox') {
+    const placeholder = escapeAttr(String(node.props.placeholder ?? ''))
+    const value = escapeAttr(String(node.props.value ?? ''))
+    const disabled = node.props.disabled ? ' disabled' : ''
+    return `${indent}<div class="${cls}"><span>Search</span><input type="text" placeholder="${placeholder}" value="${value}"${disabled} /></div>`
+  }
+  if (node.type === 'ProgressBar') {
+    const value = Math.max(0, Math.min(100, Number(node.props.value ?? 0)))
+    return `${indent}<div class="${cls}"><span style="display:block;width:${value}%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#2563eb,#06b6d4);"></span></div>`
+  }
   // 容器
   let inner = ''
   if (node.children && node.children.length > 0) {

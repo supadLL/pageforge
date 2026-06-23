@@ -78,9 +78,17 @@ export const useProjectStore = defineStore('project', () => {
     useHistoryStore().push(cmd, mergeKey as any)
   }
 
-  function addNode(type: ComponentType, parentId?: string, index?: number): Node {
+  function addNode(
+    type: ComponentType,
+    parentId?: string,
+    index?: number,
+    initialStyle?: Partial<StyleMap>
+  ): Node {
     const targetParent = resolveParent(parentId)
     const newNode = createNode(type)
+    if (initialStyle) {
+      newNode.style = { ...newNode.style, ...initialStyle }
+    }
     const cmd = makeAddCommand(targetParent.id, newNode, index)
     exec(cmd)
     return newNode

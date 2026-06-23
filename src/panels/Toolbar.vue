@@ -22,6 +22,17 @@ const selectedLabel = computed(() => {
 function onKey(e: KeyboardEvent) {
   // 不在输入控件内才响应
   const t = e.target as HTMLElement
+  const isFormInput = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')
+  if (e.key === 'Delete' && !isFormInput) {
+    const id = editor.selectedNodeId
+    if (!id) return
+    const node = project.findNodeById(id)
+    if (!node || node.type === 'PageRoot') return
+    e.preventDefault()
+    project.removeNode(id)
+    editor.selectNode(null)
+    return
+  }
   if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
     e.preventDefault()

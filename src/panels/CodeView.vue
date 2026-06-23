@@ -139,16 +139,14 @@ defineExpose({ toggle, visible })
 
 <style scoped>
 .code-view {
-  position: absolute;
-  bottom: 0;
-  left: 220px;
-  right: 300px;
   height: 280px;
+  flex: 0 0 280px;
+  min-height: 180px;
   background: #0b0d12;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   flex-direction: column;
-  z-index: 10;
+  min-width: 0;
 }
 .cv-header {
   display: flex;

@@ -138,6 +138,20 @@ function renderJsx(
     const disabled = node.props.disabled ? ' disabled' : ''
     return `${indent}<button ${className}${clickHandler}${disabled}>${escapeText(String(node.props.text ?? ''))}</button>`
   }
+  if (node.type === 'Badge') {
+    return `${indent}<span ${className}>${escapeText(String(node.props.text ?? ''))}</span>`
+  }
+  if (node.type === 'Avatar') {
+    return `${indent}<div ${className}>${escapeText(String(node.props.text ?? ''))}</div>`
+  }
+  if (node.type === 'SearchBox') {
+    const disabled = node.props.disabled ? ' disabled' : ''
+    return `${indent}<div ${className}><span>Search</span><input type="text" placeholder={${JSON.stringify(String(node.props.placeholder ?? ''))}} defaultValue={${JSON.stringify(String(node.props.value ?? ''))}}${disabled} /></div>`
+  }
+  if (node.type === 'ProgressBar') {
+    const value = Math.max(0, Math.min(100, Number(node.props.value ?? 0)))
+    return `${indent}<div ${className}><span style={{ display: 'block', width: '${value}%', height: '100%', borderRadius: 'inherit', background: 'linear-gradient(90deg,#2563eb,#06b6d4)' }} /></div>`
+  }
   // 容器
   let inner = ''
   if (node.children && node.children.length > 0) {

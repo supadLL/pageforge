@@ -1,9 +1,9 @@
 {
-  "id": "p_mqhicl9g_2",
+  "id": "p_mqq0bshs_2",
   "name": "Landing Page Demo",
   "schemaVersion": 1,
-  "createdAt": "2026-06-17T03:24:56.355Z",
-  "updatedAt": "2026-06-17T03:24:56.355Z",
+  "createdAt": "2026-06-23T02:10:21.566Z",
+  "updatedAt": "2026-06-23T02:10:21.566Z",
   "tokens": {
     "colors": {
       "primary": "#E0321C",
@@ -59,18 +59,19 @@
       "name": "Home",
       "route": "/",
       "root": {
-        "id": "root_mqhicl9g_1",
+        "id": "root_mqq0bshs_1",
         "type": "PageRoot",
         "name": "Page",
         "props": {},
         "style": {
-          "display": "flex",
-          "flexDirection": "column",
-          "minHeight": "100vh",
+          "display": "block",
+          "position": "relative",
           "width": "100%",
-          "backgroundColor": "$colors.background",
+          "minHeight": "100%",
+          "backgroundColor": "transparent",
           "color": "$colors.text",
-          "fontFamily": "$fontFamily.sans"
+          "fontFamily": "$fontFamily.sans",
+          "overflow": "visible"
         },
         "children": [
           {

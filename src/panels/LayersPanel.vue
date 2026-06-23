@@ -99,12 +99,13 @@ export default { components: { LayerNode } }
 
 <style scoped>
 .layers {
-  width: 240px;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
-  height: 100%;
   overflow: hidden;
 }
 .layers-header {

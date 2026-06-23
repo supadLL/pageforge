@@ -193,6 +193,22 @@ function renderHtml(
     const disabled = node.props.disabled ? ' disabled' : ''
     return `${indent}<button ${attrs.join(' ')}${disabled}>${escapeText(String(node.props.text ?? ''))}</button>`
   }
+  if (node.type === 'Badge') {
+    return `${indent}<span ${attrs.join(' ')}>${escapeText(String(node.props.text ?? ''))}</span>`
+  }
+  if (node.type === 'Avatar') {
+    return `${indent}<div ${attrs.join(' ')}>${escapeText(String(node.props.text ?? ''))}</div>`
+  }
+  if (node.type === 'SearchBox') {
+    const placeholder = escapeAttr(String(node.props.placeholder ?? ''))
+    const value = escapeAttr(String(node.props.value ?? ''))
+    const disabled = node.props.disabled ? ' disabled' : ''
+    return `${indent}<div ${attrs.join(' ')}><span>Search</span><input type="text" placeholder="${placeholder}" value="${value}"${disabled} /></div>`
+  }
+  if (node.type === 'ProgressBar') {
+    const value = Math.max(0, Math.min(100, Number(node.props.value ?? 0)))
+    return `${indent}<div ${attrs.join(' ')}><span style="display:block;width:${value}%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#2563eb,#06b6d4);"></span></div>`
+  }
   if (node.type === 'PageRoot' || isContainer(node.type)) {
     if (node.children && node.children.length > 0) {
       inner =

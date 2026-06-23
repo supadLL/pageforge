@@ -33,10 +33,12 @@ function toggleAIPanel() {
         <ComponentLibrary />
         <LayersPanel />
       </div>
-      <Canvas />
+      <div class="center-pane">
+        <Canvas />
+        <CodeView ref="codeView" />
+      </div>
       <PropertyPanel />
     </div>
-    <CodeView ref="codeView" />
     <AIConfigPanel :visible="aiPanelVisible" @close="aiPanelVisible = false" />
   </div>
 </template>
@@ -54,11 +56,21 @@ function toggleAIPanel() {
   flex: 1;
   display: flex;
   overflow: hidden;
+  min-height: 0;
 }
 .left-rail {
   display: flex;
   flex-direction: column;
-  width: 220px;
+  width: 244px;
   flex-shrink: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.center-pane {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 </style>
